@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "endermenarefriends",
+  "version": "${version}",
+
+  "name": "Endermen Are Friends",
+  "description": "Endermen are misunderstood, their anger is momentary, calm them down giving by them a flower :)",
+  "authors": [
+    "alkyaLy"
+  ],
+
+  "license": "MIT",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": []
+  },
+  "mixins": [
+    "endermen-are-friends.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": ">=1.16.2"
+  }
+}
