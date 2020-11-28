@@ -1,4 +1,4 @@
-#Endermen are Friends 😊
+# Endermen are Friends 😊
 
 #### Small fabric mixins mod that allows the player to pacify endermen with flowers
 ##### Endermen are misunderstood, their anger is momentary, calm them down giving by them a flower :)
