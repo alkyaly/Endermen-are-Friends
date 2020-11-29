@@ -34,7 +34,7 @@ public abstract class EndermanEntityMixin extends MobEntity implements Angerable
         ItemStack stack = player.getStackInHand(hand);
         BlockState state = getCarriedBlock();
         if(!(stack.getItem() instanceof BlockItem)) return ActionResult.FAIL;
-
+        //Required, without it, any tool/item that isn't a block will produce a ClassCastException
         if (((BlockItem)stack.getItem()).getBlock() instanceof FlowerBlock) {
             if(state != null) dropItem(state.getBlock());
             stack.useOnEntity(player, this, hand);
