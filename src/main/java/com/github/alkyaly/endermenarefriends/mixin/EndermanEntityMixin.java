@@ -32,20 +32,26 @@ public abstract class EndermanEntityMixin extends MobEntity implements Angerable
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         BlockState state = getCarriedBlock();
-        //Required, without it, any tool/item that isn't a block will produce a ClassCastException
-        if(!(stack.getItem() instanceof BlockItem)) return ActionResult.FAIL;
-        if (((BlockItem)stack.getItem()).getBlock() instanceof FlowerBlock) {
-            if(state != null) dropItem(state.getBlock());
-            stack.useOnEntity(player, this, hand);
-            setCarriedBlock(((BlockItem)stack.getItem()).getBlock().getDefaultState());
-            stack.decrement(1);
-            if (world.isClient) {
-                for (int i = 0; i < 4; ++i) {
-                    world.addParticle(ParticleTypes.HEART, getParticleX(0.5D), getRandomBodyY() + 1.25D, getParticleZ(0.5D), (random.nextDouble() - 0.5D) * 2.0D, -random.nextDouble(), (random.nextDouble() - 0.5D) * 2.0D);
+
+        if (stack.getItem() instanceof BlockItem && !world.isClient) {
+            BlockItem item = (BlockItem) stack.getItem();
+
+            if (item.getBlock() instanceof FlowerBlock) {
+                if (state != null) {
+                    dropItem(state.getBlock());
                 }
+
+                setCarriedBlock(item.getBlock().getDefaultState());
+                stack.decrement(1);
+
+                for (int i = 0; i < 4; ++i) {
+                    world.addParticle(ParticleTypes.HEART, getParticleX(0.5D), getRandomBodyY() + 1.25D, getParticleZ(0.5), (random.nextDouble() - 0.5) * 2, -random.nextDouble(), (random.nextDouble() - 0.5) * 2);
+                }
+                stopAnger();
+
+                return ActionResult.SUCCESS;
             }
-            stopAnger();
-            return ActionResult.SUCCESS;
-        } else return super.interactMob(player, hand);
+        }
+        return super.interactMob(player, hand);
     }
 }
